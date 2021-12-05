@@ -43,13 +43,28 @@ import fr.lernejo.logger.Logger;
             }
         }
 
-        public void loopUntilPlayerSucceed() {
-           boolean x =this.nextRound();
-            while (x==false){
-                this.nextRound();
-                x =this.nextRound();
-            }
+        public void loopUntilPlayerSucceed(long maxloop) {
+            long start =System.currentTimeMillis();
+            int counter = 0 ;
+            do {
+                counter ++;
 
+            } while (counter<maxloop && !nextRound());
+            long stop =System.currentTimeMillis();
+            long duration_mm= (stop-start)/600000;
+            long duration_ss= (stop-start)/1000;
+
+            if(counter==maxloop){
+                logger.log("fail in"+maxloop+"iteration  ");
+                logger.log("took"+duration_mm+" mm "+duration_ss+" ss "+((stop-start)-(duration_ss*1000)-(duration_mm*600000))+" SS");
+            }
+            logger.log("well done in "+counter+"iteration ");
+            logger.log("took"+duration_mm+" mm "+duration_ss+" ss "+((stop-start)-(duration_ss*1000)-(duration_mm*600000))+" SS");
         }
+
+
+
+
+
     }
 
