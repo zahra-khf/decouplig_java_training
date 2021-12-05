@@ -14,11 +14,18 @@ public class HumanPlayer implements Player{
 
     @Override
     public long askNextGuess() {
-        System.out.println( "saisir une entrée de l’utilisateur");
-        Scanner scanner = new Scanner(System.in);
-        long nb = scanner.nextInt();
+       do{
+           logger.log("please input a number");
 
-        return nb;
+           try {
+               Scanner guess = new Scanner(System.in);
+               return guess.nextLong();
+
+           }catch (NumberFormatException e){
+               logger.log("not a number");
+
+           }
+       } while (true);
     }
 
     @Override
